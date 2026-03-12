@@ -1,28 +1,82 @@
-<!-- Updated index.html file with improvements -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FPS Game</title>
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+        }
+        canvas {
+            display: block;
+        }
+        #hud {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            color: white;
+            font-family: Arial, sans-serif;
+            z-index: 10;
+        }
+    </style>
+</head>
+<body>
+    <div id="hud">
+        <div>Ammo: <span id="ammoCount">10</span></div>
+        <div>Health: <span id="healthBar">100</span></div>
+        <div>Kills: <span id="killCounter">0</span></div>
+        <div>Radar: <canvas id="radarCanvas" width="100" height="100"></canvas></div>
+    </div>
+    <canvas id="gameCanvas"></canvas>
 
-<!-- Faster camera sensitivity -->
-<script>
-  camera.sensitivity = 1.5;  // Adjusted for faster response
-</script>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
 
-<!-- WASD for continuous movement -->
-<script>
-  document.addEventListener('keydown', function(event) {
-    switch(event.key) {
-      case 'w': moveForward(); break;
-      case 's': moveBackward(); break;
-      case 'a': moveLeft(); break;
-      case 'd': moveRight(); break;
-    }
-  });
-</script>
+        let ammo = 10;
+        let health = 100;
+        let kills = 0;
 
-<!-- Gun model integration -->
-<script>
-  let gunModel = loadModel('path/to/gunModel'); // Load gun model
-</script>
+        function updateHUD() {
+            document.getElementById('ammoCount').textContent = ammo;
+            document.getElementById('healthBar').textContent = health;
+            document.getElementById('killCounter').textContent = kills;
+        }
 
-<!-- Improved FPS gameplay -->
-<script>
-  setFpsLimit(60); // Set FPS limit for smoother gameplay
-</script>
+        function gameLoop() {
+            // Game logic goes here
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            // Drawing logic
+            updateHUD();
+            requestAnimationFrame(gameLoop);
+        }
+
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'w') {
+                // Move forward
+            }
+            if (event.key === 'a') {
+                // Move left
+            }
+            if (event.key === 's') {
+                // Move backward
+            }
+            if (event.key === 'd') {
+                // Move right
+            }
+        });
+
+        document.addEventListener('mousemove', (event) => {
+            // Adjust camera sensitivity
+            console.log(event.movementX * 5.0);
+            console.log(event.movementY * 5.0);
+        });
+
+        gameLoop();
+    </script>
+</body>
+</html>
